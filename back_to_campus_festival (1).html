@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Back to Campus Festival — JAMK 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:   #f5f0e8;
+  --warm:    #ede6d6;
+  --paper:   #faf7f0;
+  --forest:  #2d4a3e;
+  --sage:    #5a7a6a;
+  --terra:   #c4622d;
+  --gold:    #d4902a;
+  --rust:    #a84e2f;
+  --ink:     #1e1e1e;
+  --ink2:    #3a3530;
+  --muted:   #8a8070;
+  --border:  rgba(45,74,62,0.12);
+  --shadow:  rgba(30,20,10,0.1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 56px;
+  background: rgba(250,247,240,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(16px,4vw,56px);
+}
+.nav-logo {
+  font-family: 'Fraunces', serif;
+  font-size: 16px; font-weight: 900; font-style: italic;
+  color: var(--forest); letter-spacing: .01em;
+}
+.nav-links { display: flex; gap: 4px; }
+.nav-links a {
+  font-size: 12px; color: var(--muted); text-decoration: none;
+  padding: 5px 14px; border-radius: 100px;
+  transition: color .2s, background .2s;
+  letter-spacing: .05em;
+}
+.nav-links a:hover { color: var(--forest); background: rgba(45,74,62,.07); }
+
+/* ── SECTIONS ── */
+section {
+  padding: 96px clamp(16px,6vw,80px) 80px;
+  display: flex; flex-direction: column; align-items: center;
+  position: relative;
+}
+section:nth-child(even) { background: var(--warm); }
+section:nth-child(odd)  { background: var(--paper); }
+
+.sec-tag {
+  font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--terra); font-weight: 600; margin-bottom: 10px;
+  display: block; text-align: center;
+}
+.sec-h {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(32px, 5.5vw, 68px);
+  font-weight: 900; line-height: 1.0;
+  text-align: center; letter-spacing: -.02em;
+  color: var(--ink); margin-bottom: 14px;
+}
+.sec-h em { font-style: italic; color: var(--terra); }
+.sec-sub {
+  font-size: clamp(13px,1.5vw,16px); color: var(--muted);
+  text-align: center; max-width: 580px; line-height: 1.85;
+  margin: 0 auto 48px;
+}
+.divider {
+  width: 48px; height: 2px;
+  background: var(--terra); border-radius: 2px;
+  margin: 0 auto 40px; opacity: .6;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity .75s cubic-bezier(.22,1,.36,1), transform .75s cubic-bezier(.22,1,.36,1); }
+.reveal.show { opacity: 1; transform: translateY(0); }
+.reveal-l { opacity: 0; transform: translateX(-40px); transition: opacity .75s cubic-bezier(.22,1,.36,1), transform .75s cubic-bezier(.22,1,.36,1); }
+.reveal-l.show { opacity: 1; transform: translateX(0); }
+.reveal-r { opacity: 0; transform: translateX(40px); transition: opacity .75s cubic-bezier(.22,1,.36,1), transform .75s cubic-bezier(.22,1,.36,1); }
+.reveal-r.show { opacity: 1; transform: translateX(0); }
+
+/* ═══════════════════════════════
+   HERO
+═══════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  background: var(--forest);
+  justify-content: center; align-items: center;
+  overflow: hidden;
+  padding: 56px 0 0;
+}
+/* leaf/foliage decoration canvas */
+#leaf-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+
+/* diagonal tape strip */
+.hero-tape {
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--terra) 0px, var(--terra) 20px,
+    var(--gold)  20px, var(--gold)  40px,
+    var(--cream) 40px, var(--cream) 60px,
+    var(--forest) 60px, var(--forest) 80px
+  );
+  opacity: .7;
+}
+
+.hero-inner {
+  position: relative; z-index: 2;
+  text-align: center; padding: 0 clamp(20px,5vw,60px);
+  max-width: 860px; margin: 0 auto;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(245,240,232,.1);
+  border: 1px solid rgba(245,240,232,.2);
+  border-radius: 100px; padding: 7px 20px;
+  font-size: 12px; color: rgba(245,240,232,.7);
+  letter-spacing: .1em; text-transform: uppercase; font-weight: 500;
+  margin-bottom: 28px;
+  animation: fadeUp .8s ease both .2s;
+}
+.hero-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(44px,10vw,112px);
+  font-weight: 900; line-height: .92;
+  letter-spacing: -.03em; color: var(--cream);
+  animation: fadeUp .9s ease both .3s;
+}
+.hero-title .line-terra { color: var(--terra); font-style: italic; display: block; }
+.hero-title .line-gold  { color: var(--gold);  display: block; }
+
+.hero-year {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(14px,2vw,18px); font-weight: 300;
+  color: rgba(245,240,232,.45); letter-spacing: .25em;
+  margin-top: 18px; text-transform: uppercase;
+  animation: fadeUp .9s ease both .5s;
+}
+.hero-chips {
+  display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+  margin-top: 32px;
+  animation: fadeUp .9s ease both .7s;
+}
+.hchip {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(245,240,232,.08);
+  border: 1px solid rgba(245,240,232,.15);
+  border-radius: 8px; padding: 8px 18px;
+  font-size: 13px; color: rgba(245,240,232,.75);
+  font-weight: 500; transition: background .2s;
+}
+.hchip:hover { background: rgba(245,240,232,.14); }
+
+.hero-scroll {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(245,240,232,.3); text-align: center; z-index: 2;
+  animation: fadeUp 1s ease both 1.2s;
+}
+.hero-scroll-line {
+  width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(245,240,232,.3), transparent);
+  margin: 8px auto 0;
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine { 0%,100%{transform:scaleY(1);opacity:.5} 50%{transform:scaleY(.5);opacity:1} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+/* decorative leaf SVGs */
+.leaf-deco {
+  position: absolute; pointer-events: none; z-index: 1; opacity: .12;
+}
+
+/* ═══════════════════════════════
+   ABOUT / INTRO
+═══════════════════════════════ */
+#about { background: var(--cream); }
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px; max-width: 900px; width: 100%;
+}
+.about-card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px 24px;
+  text-align: center;
+  transition: transform .25s, box-shadow .25s;
+}
+.about-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px var(--shadow); }
+.about-card .icon { font-size: 36px; margin-bottom: 14px; display: block; }
+.about-card h3 {
+  font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700;
+  color: var(--forest); margin-bottom: 8px;
+}
+.about-card p { font-size: 13px; color: var(--muted); line-height: 1.75; }
+.about-card .num {
+  font-family: 'Fraunces', serif; font-size: 42px; font-weight: 900;
+  color: var(--terra); line-height: 1; margin-bottom: 6px; display: block;
+}
+
+/* ═══════════════════════════════
+   WRISTBAND
+═══════════════════════════════ */
+#wristband { background: var(--paper); }
+.wb-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 32px; max-width: 980px; width: 100%;
+}
+
+/* WRISTBAND VISUAL CARD */
+.wb-visual {
+  background: var(--warm);
+  border: 1px solid var(--border);
+  border-radius: 20px; padding: 32px 28px;
+  display: flex; flex-direction: column; align-items: center; gap: 24px;
+}
+.wb-label {
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted); font-weight: 600;
+}
+
+/* THE WRISTBAND */
+.band {
+  width: 100%; max-width: 350px; height: 88px;
+  border-radius: 44px;
+  background: linear-gradient(135deg, var(--forest) 0%, #1e3530 60%, #152e28 100%);
+  border: 2px solid rgba(255,255,255,.12);
+  display: flex; align-items: center; padding: 0 22px; gap: 16px;
+  position: relative; overflow: hidden;
+  box-shadow: 0 8px 32px rgba(30,20,10,.25), inset 0 1px 0 rgba(255,255,255,.08);
+}
+/* textile texture */
+.band::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    90deg, transparent 0, transparent 10px,
+    rgba(255,255,255,.025) 10px, rgba(255,255,255,.025) 11px
+  );
+  border-radius: inherit;
+}
+/* shimmer sweep */
+.band::after {
+  content: '';
+  position: absolute; inset: 0; border-radius: inherit;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.05) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: bandShimmer 4s ease-in-out infinite;
+}
+@keyframes bandShimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+.band-brand {
+  flex-shrink: 0; position: relative; z-index: 1;
+}
+.band-brand .bname {
+  font-family: 'Fraunces', serif; font-size: 13px; font-weight: 900;
+  color: var(--cream); letter-spacing: .06em; display: block;
+}
+.band-brand .bevent {
+  font-size: 7px; color: rgba(245,240,232,.4); letter-spacing: .1em;
+  text-transform: uppercase; margin-top: 2px; display: block;
+}
+.band-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--terra);
+  box-shadow: 0 0 8px var(--terra);
+  margin-top: 5px;
+  animation: dotBlink 2.5s ease-in-out infinite;
+}
+@keyframes dotBlink { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+.band-bc {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px;
+  position: relative; z-index: 1;
+}
+.bc-bars { display: flex; gap: 2px; align-items: flex-end; height: 40px; }
+.bc-bars span { display: block; background: rgba(245,240,232,.8); border-radius: 1px; }
+.bc-code { font-size: 7.5px; font-family: monospace; color: rgba(245,240,232,.3); letter-spacing: .12em; }
+
+/* scan line */
+.scan-line {
+  position: absolute; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--terra) 30%, rgba(196,98,45,.9) 50%, var(--terra) 70%, transparent);
+  box-shadow: 0 0 10px var(--terra);
+  animation: scanMove 3s ease-in-out infinite;
+  top: 10%; pointer-events: none;
+}
+@keyframes scanMove { 0%{top:10%;opacity:0} 10%{opacity:1} 90%{opacity:1} 100%{top:88%;opacity:0} }
+
+.band-student {
+  flex-shrink: 0; text-align: right; position: relative; z-index: 1;
+}
+.band-student .bsname { font-size: 10px; font-weight: 600; color: var(--cream); }
+.band-student .bsid   { font-size: 7.5px; color: rgba(245,240,232,.3); letter-spacing: .06em; margin-top: 1px; }
+.band-student .bstag  {
+  display: inline-block; margin-top: 4px;
+  background: rgba(196,98,45,.2); border: 1px solid rgba(196,98,45,.35);
+  color: rgba(245,240,232,.8); font-size: 7px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; padding: 2px 7px; border-radius: 100px;
+}
+
+/* SCAN CONFIRMED */
+.scan-confirm {
+  width: 100%; padding: 13px 18px;
+  background: rgba(45,74,62,.08);
+  border: 1px solid rgba(45,74,62,.2);
+  border-radius: 12px;
+  display: flex; align-items: center; gap: 12px;
+  animation: confirmPulse 3s ease-in-out infinite;
+}
+@keyframes confirmPulse { 0%,15%{opacity:0;transform:translateY(4px)} 35%,80%{opacity:1;transform:translateY(0)} 100%{opacity:0} }
+.sc-icon { font-size: 22px; }
+.sc-text .sc1 { font-size: 13px; font-weight: 600; color: var(--forest); }
+.sc-text .sc2 { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* pricing 2-col */
+.price-grid {
+  width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.price-box {
+  border-radius: 12px; padding: 16px; text-align: center;
+}
+.price-box.first {
+  background: rgba(196,98,45,.06);
+  border: 1px solid rgba(196,98,45,.2);
+}
+.price-box.repeat {
+  background: rgba(45,74,62,.05);
+  border: 1px solid rgba(45,74,62,.15);
+}
+.price-box .pnum {
+  font-family: 'Fraunces', serif; font-size: 36px; font-weight: 900; line-height: 1;
+}
+.price-box.first  .pnum { color: var(--terra); }
+.price-box.repeat .pnum { color: var(--forest); }
+.price-box .plbl {
+  font-size: 10px; letter-spacing: .13em; text-transform: uppercase;
+  font-weight: 600; margin: 4px 0 8px;
+}
+.price-box.first  .plbl { color: var(--terra); }
+.price-box.repeat .plbl { color: var(--sage); }
+.price-box .pdesc { font-size: 11px; color: var(--muted); line-height: 1.55; }
+
+/* STEPS RIGHT */
+.wb-steps { display: flex; flex-direction: column; gap: 10px; }
+.wb-step {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--paper); border: 1px solid var(--border);
+  border-radius: 14px; padding: 16px 18px;
+  transition: border-color .2s, transform .25s, box-shadow .2s;
+}
+.wb-step:hover { border-color: rgba(196,98,45,.3); transform: translateX(5px); box-shadow: -3px 0 16px rgba(196,98,45,.07); }
+.ws-icon { width: 38px; height: 38px; border-radius: 10px; background: rgba(196,98,45,.08); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; transition: transform .2s; }
+.wb-step:hover .ws-icon { transform: scale(1.1); }
+.ws-h { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+.ws-p { font-size: 12px; color: var(--muted); line-height: 1.65; }
+.ws-tag {
+  display: inline-block; margin-top: 6px;
+  font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 2px 10px; border-radius: 100px;
+}
+.tag-terra { background: rgba(196,98,45,.1); color: var(--terra); }
+.tag-forest { background: rgba(45,74,62,.1); color: var(--forest); }
+
+/* ═══════════════════════════════
+   STALLS
+═══════════════════════════════ */
+#stalls { background: var(--warm); }
+.stalls-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(196px,1fr));
+  gap: 16px; max-width: 1080px; width: 100%;
+}
+.stall {
+  background: var(--paper); border: 1px solid var(--border);
+  border-radius: 18px; padding: 26px 20px 22px;
+  display: flex; flex-direction: column; gap: 13px;
+  position: relative; overflow: hidden;
+  transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
+}
+.stall:hover { transform: translateY(-8px); box-shadow: 0 24px 48px var(--shadow); }
+.stall::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  border-radius: 18px 18px 0 0;
+}
+.stall.india::before { background: linear-gradient(90deg,#FF9933,#f5c842); }
+.stall.nepal::before { background: linear-gradient(90deg,#c8102e,#003893); }
+.stall.china::before { background: linear-gradient(90deg,#DE2910,#f5c842); }
+.stall.viet::before  { background: linear-gradient(90deg,#da251d,#f5c842); }
+.stall.finn::before  { background: linear-gradient(90deg,#003580,#4a90d9); }
+
+.stall.india:hover { border-color: rgba(255,153,51,.3); }
+.stall.nepal:hover { border-color: rgba(200,16,46,.3); }
+.stall.china:hover { border-color: rgba(222,41,16,.3); }
+.stall.viet:hover  { border-color: rgba(218,37,29,.3); }
+.stall.finn:hover  { border-color: rgba(0,53,128,.2); }
+
+.stall-flag { font-size: 42px; display: block; transition: transform .3s; }
+.stall:hover .stall-flag { transform: scale(1.12) rotate(-3deg); }
+.stall-name {
+  font-family: 'Fraunces', serif; font-size: 19px; font-weight: 700;
+  color: var(--ink); letter-spacing: -.01em;
+}
+.stall-type { font-size: 10px; letter-spacing: .13em; text-transform: uppercase; color: var(--muted); margin-top: -7px; }
+.stall-menu { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.stall-menu li { display: flex; align-items: center; justify-content: space-between; font-size: 13px; }
+.dish { display: flex; align-items: center; gap: 8px; color: var(--ink2); }
+.dish::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--terra); flex-shrink: 0; }
+.mprice { font-size: 11px; color: var(--muted); font-weight: 500; }
+.stall-badge {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(196,98,45,.06); border: 1px solid rgba(196,98,45,.18);
+  border-radius: 9px; padding: 8px 12px; font-size: 11px; color: var(--terra);
+  margin-top: auto;
+}
+.stall-seller {
+  display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--muted);
+  border-top: 1px solid var(--border); padding-top: 10px;
+}
+
+/* ═══════════════════════════════
+   HOW IT WORKS
+═══════════════════════════════ */
+#howit { background: var(--paper); }
+.flow-row {
+  display: flex; align-items: flex-start; gap: 0;
+  max-width: 960px; width: 100%; flex-wrap: wrap; justify-content: center;
+}
+.flow-step {
+  flex: 1; min-width: 150px; max-width: 190px;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; gap: 10px; padding: 0 8px;
+  position: relative;
+}
+/* connector line between steps */
+.flow-step + .flow-step::before {
+  content: '';
+  position: absolute; left: -12px; top: 22px;
+  width: 24px; height: 1px;
+  background: var(--border);
+}
+.fs-num {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--warm); border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif; font-size: 18px; font-weight: 900;
+  color: var(--terra);
+  transition: background .2s, border-color .2s, transform .2s;
+}
+.flow-step:hover .fs-num { background: var(--terra); border-color: var(--terra); color: #fff; transform: scale(1.1); }
+.fs-icon { font-size: 26px; }
+.fs-h { font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.fs-p { font-size: 12px; color: var(--muted); line-height: 1.65; }
+.fs-tag {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 100px;
+}
+
+/* ═══════════════════════════════
+   VENUE MAP
+═══════════════════════════════ */
+#layout { background: var(--warm); }
+.map-card {
+  width: 100%; max-width: 900px;
+  background: var(--paper); border: 1px solid var(--border);
+  border-radius: 20px; overflow: hidden;
+  box-shadow: 0 8px 40px var(--shadow);
+}
+
+/* ═══════════════════════════════
+   LEADERBOARD
+═══════════════════════════════ */
+#leaderboard { background: var(--paper); }
+.lb-wrap { width: 100%; max-width: 700px; display: flex; flex-direction: column; gap: 10px; }
+.lb-row {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--warm); border: 1px solid var(--border);
+  border-radius: 14px; padding: 14px 18px;
+  position: relative; overflow: hidden;
+  transition: transform .25s, box-shadow .25s;
+}
+.lb-row:hover { transform: translateX(6px); box-shadow: -3px 0 20px var(--shadow); }
+.lb-row::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; border-radius: 14px 0 0 14px;
+}
+.lb-row:nth-child(1) { border-color: rgba(212,144,42,.3); background: rgba(212,144,42,.04); }
+.lb-row:nth-child(1)::before { background: var(--gold); }
+.lb-row:nth-child(2)::before { background: #9aa4b2; }
+.lb-row:nth-child(3)::before { background: #b8805a; }
+.lb-row:nth-child(n+4)::before { background: var(--border); }
+
+.lb-rank {
+  font-family: 'Fraunces', serif; font-size: 22px; font-weight: 900;
+  min-width: 26px; line-height: 1;
+}
+.lb-row:nth-child(1) .lb-rank { color: var(--gold); }
+.lb-row:nth-child(2) .lb-rank { color: #9aa4b2; }
+.lb-row:nth-child(3) .lb-rank { color: #b8805a; }
+.lb-row:nth-child(n+4) .lb-rank { color: var(--muted); }
+.lb-flag { font-size: 26px; }
+.lb-info { flex: 1; }
+.lb-name { font-size: 14px; font-weight: 600; color: var(--ink); }
+.lb-detail { font-size: 11px; color: var(--muted); }
+.lb-bar { flex: 1; max-width: 160px; height: 5px; background: rgba(0,0,0,.07); border-radius: 3px; overflow: hidden; }
+.lb-fill { height: 100%; border-radius: 3px; transition: width 1.5s cubic-bezier(.22,1,.36,1); }
+.lb-row:nth-child(1) .lb-fill { background: var(--gold); }
+.lb-row:nth-child(2) .lb-fill { background: #9aa4b2; }
+.lb-row:nth-child(3) .lb-fill { background: #b8805a; }
+.lb-row:nth-child(n+4) .lb-fill { background: rgba(0,0,0,.15); }
+.lb-rev {
+  font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700;
+  min-width: 62px; text-align: right;
+}
+.lb-row:nth-child(1) .lb-rev { color: var(--gold); }
+
+.prizes { display: flex; gap: 12px; max-width: 700px; width: 100%; flex-wrap: wrap; margin-top: 10px; }
+.prize {
+  flex: 1; min-width: 140px;
+  background: var(--warm); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px 16px; text-align: center;
+  transition: transform .25s, box-shadow .25s;
+}
+.prize:hover { transform: translateY(-5px); box-shadow: 0 16px 32px var(--shadow); }
+.prize .trophy { font-size: 28px; display: block; margin-bottom: 8px; animation: floatTrophy 3s ease-in-out infinite; }
+.prize:nth-child(2) .trophy { animation-delay: .4s; }
+.prize:nth-child(3) .trophy { animation-delay: .8s; }
+@keyframes floatTrophy { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+.prize .pplace {
+  font-family: 'Fraunces', serif; font-size: 14px; font-weight: 700;
+  letter-spacing: .04em; margin-bottom: 5px;
+}
+.prize:nth-child(1) .pplace { color: var(--gold); }
+.prize:nth-child(2) .pplace { color: #9aa4b2; }
+.prize:nth-child(3) .pplace { color: #b8805a; }
+.prize .preward { font-size: 11px; color: var(--muted); line-height: 1.6; }
+
+/* ═══════════════════════════════
+   SIMULATOR
+═══════════════════════════════ */
+#simulate { background: var(--warm); }
+.sim-wrap { width: 100%; max-width: 700px; }
+.sim-btns { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+.sbtn {
+  background: none; border: 1.5px solid var(--border);
+  color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+  padding: 9px 22px; border-radius: 9px; cursor: pointer;
+  transition: background .2s, border-color .2s, transform .15s;
+}
+.sbtn:hover { background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.2); transform: translateY(-2px); }
+.sbtn.go { background: var(--forest); color: var(--cream); border-color: var(--forest); font-weight: 600; }
+.sbtn.go:hover { background: #1e3530; box-shadow: 0 6px 20px rgba(45,74,62,.25); }
+
+.sim-tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.sim-tbl th {
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+  font-weight: 600; padding: 8px 12px; text-align: left;
+  border-bottom: 1.5px solid var(--border);
+}
+.sim-tbl td { padding: 12px 12px; border-bottom: 1px solid rgba(0,0,0,.04); vertical-align: middle; }
+.sim-tbl tr:last-child td { border-bottom: none; }
+.sim-tbl tr.top td { background: rgba(212,144,42,.05); }
+.sim-tbl tr.top td:first-child { border-left: 2px solid var(--gold); }
+
+.s-label { display: flex; align-items: center; gap: 10px; }
+.s-flag  { font-size: 21px; }
+.s-nm    { font-weight: 500; font-size: 13px; color: var(--ink); }
+.s-nat   { font-size: 10px; color: var(--muted); }
+.s-bar-wrap { display: flex; align-items: center; gap: 8px; }
+.s-bar  { flex: 1; height: 5px; background: rgba(0,0,0,.07); border-radius: 3px; overflow: hidden; }
+.s-fill { height: 100%; border-radius: 3px; background: rgba(196,98,45,.5); transition: width .85s cubic-bezier(.22,1,.36,1); }
+.s-fill.top { background: var(--terra); }
+.s-val  { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 700; min-width: 56px; text-align: right; color: var(--ink); }
+.sim-tbl tr.top .s-val { color: var(--terra); }
+
+.rbadge { display: inline-flex; align-items: center; justify-content: center; width: 25px; height: 25px; border-radius: 50%; font-family: 'Fraunces', serif; font-size: 12px; font-weight: 900; }
+.r1 { background: rgba(212,144,42,.15); color: var(--gold); }
+.r2 { background: rgba(154,164,178,.15); color: #7a8898; }
+.r3 { background: rgba(184,128,90,.15); color: #b8805a; }
+.rn { background: rgba(0,0,0,.05); color: var(--muted); }
+
+.win-banner {
+  background: rgba(45,74,62,.07); border: 1px solid rgba(45,74,62,.2);
+  border-radius: 12px; padding: 14px 18px; margin-top: 14px;
+  font-size: 13px; color: var(--ink); display: none;
+  animation: bannerIn .5s cubic-bezier(.22,1,.36,1);
+}
+@keyframes bannerIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.win-banner strong { color: var(--forest); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--forest);
+  padding: 36px clamp(16px,5vw,56px);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.ft-logo {
+  font-family: 'Fraunces', serif; font-size: 18px; font-weight: 900;
+  font-style: italic; color: var(--cream);
+}
+.ft-note { font-size: 12px; color: rgba(245,240,232,.45); }
+.ft-tape {
+  width: 100%; height: 3px;
+  background: repeating-linear-gradient(
+    90deg, var(--terra) 0,var(--terra) 16px,
+    var(--gold) 16px,var(--gold) 32px,
+    var(--cream) 32px,var(--cream) 48px,
+    var(--forest) 48px,var(--forest) 64px
+  );
+  opacity: .4; margin-bottom: 24px;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:700px) {
+  .wb-layout { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; }
+  .flow-row { gap: 24px; }
+  .flow-step + .flow-step::before { display: none; }
+  .stalls-grid { grid-template-columns: 1fr 1fr; }
+}
+@media(max-width:440px) { .stalls-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">🎪 Back to Campus Festival</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#wristband">Wristband</a>
+    <a href="#stalls">Stalls</a>
+    <a href="#leaderboard">Rankings</a>
+    <a href="#simulate">Simulate</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <canvas id="leaf-canvas"></canvas>
+  <div class="hero-tape"></div>
+
+  <!-- Decorative leaf shapes -->
+  <svg class="leaf-deco" style="top:-5%;right:2%;width:260px;height:300px;transform:rotate(15deg)" viewBox="0 0 260 300">
+    <ellipse cx="130" cy="150" rx="90" ry="120" fill="none" stroke="#f5f0e8" stroke-width="1.5"/>
+    <line x1="130" y1="30" x2="130" y2="270" stroke="#f5f0e8" stroke-width="1"/>
+    <line x1="130" y1="80"  x2="60"  y2="120" stroke="#f5f0e8" stroke-width=".8"/>
+    <line x1="130" y1="110" x2="55"  y2="155" stroke="#f5f0e8" stroke-width=".8"/>
+    <line x1="130" y1="140" x2="58"  y2="185" stroke="#f5f0e8" stroke-width=".8"/>
+    <line x1="130" y1="80"  x2="200" y2="120" stroke="#f5f0e8" stroke-width=".8"/>
+    <line x1="130" y1="110" x2="205" y2="155" stroke="#f5f0e8" stroke-width=".8"/>
+    <line x1="130" y1="140" x2="202" y2="185" stroke="#f5f0e8" stroke-width=".8"/>
+  </svg>
+  <svg class="leaf-deco" style="bottom:8%;left:1%;width:200px;height:240px;transform:rotate(-20deg)" viewBox="0 0 200 240">
+    <ellipse cx="100" cy="120" rx="70" ry="95" fill="none" stroke="#f5f0e8" stroke-width="1.5"/>
+    <line x1="100" y1="25" x2="100" y2="215" stroke="#f5f0e8" stroke-width="1"/>
+    <line x1="100" y1="65"  x2="45"  y2="96"  stroke="#f5f0e8" stroke-width=".7"/>
+    <line x1="100" y1="88"  x2="42"  y2="122" stroke="#f5f0e8" stroke-width=".7"/>
+    <line x1="100" y1="65"  x2="155" y2="96"  stroke="#f5f0e8" stroke-width=".7"/>
+    <line x1="100" y1="88"  x2="158" y2="122" stroke="#f5f0e8" stroke-width=".7"/>
+  </svg>
+
+  <div class="hero-inner">
+    <div class="hero-badge">🎪 JAMK University of Applied Sciences · Jyväskylä · 2025</div>
+    <h1 class="hero-title">
+      Back to<br>
+      <span class="line-terra">Campus</span>
+      <span class="line-gold">Festival</span>
+    </h1>
+    <p class="hero-year">Welcome Back, Everyone</p>
+    <div class="hero-chips">
+      <div class="hchip">🍢 5 Food Nations</div>
+      <div class="hchip">📶 Wristband Discount</div>
+      <div class="hchip">🏆 Stall Competition</div>
+      <div class="hchip">👥 Student-Run</div>
+      <div class="hchip">🌿 Outdoor Campus</div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    Scroll to explore
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <span class="sec-tag reveal">The Concept</span>
+  <h2 class="sec-h reveal">Food, Community,<br><em>Competition.</em></h2>
+  <p class="sec-sub reveal">Senior students run international street food stalls at the Back to Campus Festival. New and returning students eat, explore, and vote with their wallets.</p>
+  <div class="divider"></div>
+
+  <div class="about-grid">
+    <div class="about-card reveal" style="transition-delay:.0s">
+      <span class="icon">👨‍🍳</span>
+      <span class="num">5</span>
+      <h3>Nationalities</h3>
+      <p>India, Nepal, China, Vietnam & Finland — each stall run by senior students from that culture, serving authentic fast food.</p>
+    </div>
+    <div class="about-card reveal" style="transition-delay:.1s">
+      <span class="icon">📶</span>
+      <span class="num">50%</span>
+      <h3>First Bite Discount</h3>
+      <p>Show your wristband barcode at any stall. Your very first order is half price — making it risk-free to try something new.</p>
+    </div>
+    <div class="about-card reveal" style="transition-delay:.2s">
+      <span class="icon">🏆</span>
+      <span class="num">1st</span>
+      <h3>Champion Stall</h3>
+      <p>After closing, all stall revenues are tallied. The highest earner is crowned champion — live, in front of the crowd.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WRISTBAND ══ -->
+<section id="wristband">
+  <span class="sec-tag reveal">Discount System</span>
+  <h2 class="sec-h reveal">Your Wristband,<br><em>Your Discount.</em></h2>
+  <p class="sec-sub reveal">Every student gets a wristband at the festival entrance. One scan = one 50% discount. Simple, instant, automatic.</p>
+  <div class="divider"></div>
+
+  <div class="wb-layout">
+    <!-- LEFT: visual -->
+    <div class="wb-visual reveal-l">
+      <div class="wb-label">Student Wristband</div>
+
+      <div style="position:relative;width:100%;max-width:350px;">
+        <div class="band">
+          <div class="scan-line"></div>
+          <div class="band-brand">
+            <span class="bname">JAMK</span>
+            <span class="bevent">Back to Campus 2025</span>
+            <div class="band-dot"></div>
+          </div>
+          <div class="band-bc">
+            <div class="bc-bars" id="bcBars"></div>
+            <div class="bc-code">JAMK-2025-00847</div>
+          </div>
+          <div class="band-student">
+            <div class="bsname">J. Student</div>
+            <div class="bsid">ID: 00847</div>
+            <div class="bstag">50% OFF</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scan-confirm">
+        <span class="sc-icon">✅</span>
+        <div class="sc-text">
+          <div class="sc1">Student Verified — Discount Applied</div>
+          <div class="sc2">First purchase · JAMK-2025-00847</div>
+        </div>
+      </div>
+
+      <div class="price-grid">
+        <div class="price-box first">
+          <div class="pnum">50%</div>
+          <div class="plbl">First Purchase</div>
+          <div class="pdesc">Wristband scan required. Automatically applied. One per student.</div>
+        </div>
+        <div class="price-box repeat">
+          <div class="pnum">Full</div>
+          <div class="plbl">Repeat Orders</div>
+          <div class="pdesc">Every repeat purchase counts toward that stall's competition score.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: steps -->
+    <div class="wb-steps reveal-r">
+      <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--terra);font-weight:600;margin-bottom:8px;">How It Works</div>
+
+      <div class="wb-step">
+        <div class="ws-icon">🎟</div>
+        <div><div class="ws-h">Get Wristband at Entry</div><div class="ws-p">Handed out as you enter the festival grounds. Unique barcode linked to your student ID.</div></div>
+      </div>
+      <div class="wb-step">
+        <div class="ws-icon">🍢</div>
+        <div><div class="ws-h">Choose Any Stall</div><div class="ws-p">5 countries, all serving hot handheld food. Pick your first stop — it's half price anyway.</div></div>
+      </div>
+      <div class="wb-step">
+        <div class="ws-icon">📶</div>
+        <div><div class="ws-h">Scan Barcode at Stall</div><div class="ws-p">Hold your wristband to the scanner. Confirmed instantly — no app, no fuss.</div><span class="ws-tag tag-terra">50% off — one scan only</span></div>
+      </div>
+      <div class="wb-step">
+        <div class="ws-icon">🔒</div>
+        <div><div class="ws-h">Barcode Marked as Used</div><div class="ws-p">After the first scan, the code is flagged. All further orders across all stalls are full price.</div></div>
+      </div>
+      <div class="wb-step">
+        <div class="ws-icon">🔁</div>
+        <div><div class="ws-h">Come Back — Vote with Your Wallet</div><div class="ws-p">Every full-price repeat purchase adds directly to that stall's competition revenue.</div><span class="ws-tag tag-forest">Drives the leaderboard</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STALLS ══ -->
+<section id="stalls">
+  <span class="sec-tag reveal">The Menus</span>
+  <h2 class="sec-h reveal">Fast. <em>Handheld.</em> Delicious.</h2>
+  <p class="sec-sub reveal">Everything is finger food — easy to eat while you walk the campus grounds. No plates. No sitting. Just good food.</p>
+  <div class="divider"></div>
+
+  <div class="stalls-grid">
+    <div class="stall india reveal" style="transition-delay:.0s">
+      <span class="stall-flag">🇮🇳</span>
+      <div class="stall-name">India Stall</div>
+      <div class="stall-type">Indian Street Bites</div>
+      <ul class="stall-menu">
+        <li><span class="dish">Chicken Tikka Skewer</span><span class="mprice">€4</span></li>
+        <li><span class="dish">Samosa (2 pcs)</span><span class="mprice">€3</span></li>
+        <li><span class="dish">Spicy Kathi Wrap</span><span class="mprice">€5</span></li>
+        <li><span class="dish">Masala Chai</span><span class="mprice">€2</span></li>
+      </ul>
+      <div class="stall-badge">📶 Scan wristband → 50% off first item</div>
+      <div class="stall-seller">👤 Indian Senior Students</div>
+    </div>
+
+    <div class="stall nepal reveal" style="transition-delay:.08s">
+      <span class="stall-flag">🇳🇵</span>
+      <div class="stall-name">Nepal Stall</div>
+      <div class="stall-type">Nepali Street Bites</div>
+      <ul class="stall-menu">
+        <li><span class="dish">Sekuwa Skewer</span><span class="mprice">€4</span></li>
+        <li><span class="dish">Chatpate Pocket</span><span class="mprice">€3</span></li>
+        <li><span class="dish">Sel Roti Ring</span><span class="mprice">€2</span></li>
+        <li><span class="dish">Masala Tea</span><span class="mprice">€2</span></li>
+      </ul>
+      <div class="stall-badge">📶 Scan wristband → 50% off first item</div>
+      <div class="stall-seller">👤 Nepali Senior Students</div>
+    </div>
+
+    <div class="stall china reveal" style="transition-delay:.16s">
+      <span class="stall-flag">🇨🇳</span>
+      <div class="stall-name">China Stall</div>
+      <div class="stall-type">Chinese Street Bites</div>
+      <ul class="stall-menu">
+        <li><span class="dish">BBQ Meat Skewer</span><span class="mprice">€4</span></li>
+        <li><span class="dish">Steamed Bao Bun</span><span class="mprice">€3</span></li>
+        <li><span class="dish">Spring Roll (2 pcs)</span><span class="mprice">€3</span></li>
+        <li><span class="dish">Iced Milk Tea</span><span class="mprice">€3</span></li>
+      </ul>
+      <div class="stall-badge">📶 Scan wristband → 50% off first item</div>
+      <div class="stall-seller">👤 Chinese Senior Students</div>
+    </div>
+
+    <div class="stall viet reveal" style="transition-delay:.24s">
+      <span class="stall-flag">🇻🇳</span>
+      <div class="stall-name">Vietnam Stall</div>
+      <div class="stall-type">Vietnamese Street Bites</div>
+      <ul class="stall-menu">
+        <li><span class="dish">Bánh Mì Baguette</span><span class="mprice">€5</span></li>
+        <li><span class="dish">Fresh Spring Roll</span><span class="mprice">€3</span></li>
+        <li><span class="dish">Grilled Pork Stick</span><span class="mprice">€4</span></li>
+        <li><span class="dish">Vietnamese Coffee</span><span class="mprice">€3</span></li>
+      </ul>
+      <div class="stall-badge">📶 Scan wristband → 50% off first item</div>
+      <div class="stall-seller">👤 Vietnamese Senior Students</div>
+    </div>
+
+    <div class="stall finn reveal" style="transition-delay:.32s">
+      <span class="stall-flag">🇫🇮</span>
+      <div class="stall-name">Finland Stall</div>
+      <div class="stall-type">Finnish Festival Bites</div>
+      <ul class="stall-menu">
+        <li><span class="dish">Grilled Bratwurst</span><span class="mprice">€4</span></li>
+        <li><span class="dish">Karelian Pie</span><span class="mprice">€3</span></li>
+        <li><span class="dish">Liha Pocket Pie</span><span class="mprice">€4</span></li>
+        <li><span class="dish">Hot Coffee</span><span class="mprice">€2</span></li>
+      </ul>
+      <div class="stall-badge">📶 Scan wristband → 50% off first item</div>
+      <div class="stall-seller">👤 Finnish Senior Students</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section id="howit">
+  <span class="sec-tag reveal">Flow</span>
+  <h2 class="sec-h reveal">From Entry<br><em>to Champion</em></h2>
+  <div class="divider"></div>
+
+  <div class="flow-row reveal">
+    <div class="flow-step">
+      <div class="fs-num">1</div>
+      <div class="fs-icon">🎟</div>
+      <div class="fs-h">Get Wristband</div>
+      <div class="fs-p">Collected at the campus gate. Unique barcode per student.</div>
+      <span class="fs-tag tag-forest" style="background:rgba(45,74,62,.1);color:var(--forest);">Entry</span>
+    </div>
+    <div class="flow-step">
+      <div class="fs-num">2</div>
+      <div class="fs-icon">🍢</div>
+      <div class="fs-h">Choose a Stall</div>
+      <div class="fs-p">Walk the grounds. Pick any of the 5 international stalls.</div>
+      <span class="fs-tag" style="background:rgba(196,98,45,.1);color:var(--terra);">Explore</span>
+    </div>
+    <div class="flow-step">
+      <div class="fs-num">3</div>
+      <div class="fs-icon">📶</div>
+      <div class="fs-h">Scan & Save</div>
+      <div class="fs-p">First purchase is 50% off when you scan. Barcode flagged after use.</div>
+      <span class="fs-tag" style="background:rgba(196,98,45,.1);color:var(--terra);">50% OFF</span>
+    </div>
+    <div class="flow-step">
+      <div class="fs-num">4</div>
+      <div class="fs-icon">😋</div>
+      <div class="fs-h">Try & Return</div>
+      <div class="fs-p">Loved it? Come back and buy again — full price supports the stall.</div>
+      <span class="fs-tag" style="background:rgba(212,144,42,.1);color:var(--gold);">Vote</span>
+    </div>
+    <div class="flow-step">
+      <div class="fs-num">5</div>
+      <div class="fs-icon">🏆</div>
+      <div class="fs-h">Winner Announced</div>
+      <div class="fs-p">At closing, highest revenue stall is crowned champion in front of everyone.</div>
+      <span class="fs-tag" style="background:rgba(212,144,42,.1);color:var(--gold);">Champion</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VENUE MAP ══ -->
+<section id="layout">
+  <span class="sec-tag reveal">Venue</span>
+  <h2 class="sec-h reveal">Campus <em>Floor Plan</em></h2>
+  <p class="sec-sub reveal">Stalls are arranged across the outdoor campus grounds — easy to find, easy to navigate between performances and activities.</p>
+  <div class="divider"></div>
+
+  <div class="map-card reveal">
+    <svg style="width:100%;display:block;" viewBox="0 0 860 460" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="grass" width="24" height="24" patternUnits="userSpaceOnUse">
+          <rect width="24" height="24" fill="#e8f0e4"/>
+          <circle cx="12" cy="12" r="0.7" fill="rgba(45,74,62,0.12)"/>
+        </pattern>
+        <pattern id="path-tex" width="16" height="16" patternUnits="userSpaceOnUse">
+          <rect width="16" height="16" fill="#d8c9a8"/>
+          <circle cx="8" cy="8" r="0.5" fill="rgba(0,0,0,0.06)"/>
+        </pattern>
+      </defs>
+
+      <!-- Ground -->
+      <rect width="860" height="460" fill="url(#grass)" rx="12"/>
+      <!-- Border -->
+      <rect x="12" y="12" width="836" height="436" rx="10" fill="none" stroke="rgba(45,74,62,0.15)" stroke-width="1.5" stroke-dasharray="8 5"/>
+
+      <!-- Main path (horizontal) -->
+      <rect x="80" y="210" width="700" height="40" rx="6" fill="url(#path-tex)" opacity=".85"/>
+      <!-- Side paths -->
+      <rect x="150" y="12" width="30" height="436" rx="4" fill="url(#path-tex)" opacity=".5"/>
+      <rect x="680" y="12" width="30" height="436" rx="4" fill="url(#path-tex)" opacity=".5"/>
+
+      <!-- MAIN STAGE area -->
+      <rect x="280" y="26" width="300" height="100" rx="10" fill="#2d4a3e"/>
+      <rect x="280" y="26" width="300" height="5"  rx="2" fill="rgba(245,240,232,.3)"/>
+      <text x="430" y="68" font-family="'DM Sans',sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="rgba(245,240,232,.85)" letter-spacing="2">🎪 MAIN STAGE</text>
+      <text x="430" y="89" font-family="'DM Sans',sans-serif" font-size="9" text-anchor="middle" fill="rgba(245,240,232,.4)" letter-spacing="3">BACK TO CAMPUS FESTIVAL</text>
+      <!-- Stage base line -->
+      <rect x="280" y="124" width="300" height="3" rx="1" fill="rgba(196,98,45,.6)"/>
+
+      <!-- Trees (simple circles) -->
+      <g fill="#4a7a5a" opacity=".6">
+        <circle cx="40"  cy="60"  r="18"/><circle cx="820" cy="60"  r="18"/>
+        <circle cx="40"  cy="400" r="16"/><circle cx="820" cy="400" r="16"/>
+        <circle cx="240" cy="40"  r="12"/><circle cx="620" cy="40"  r="12"/>
+        <circle cx="440" cy="290" r="14"/><circle cx="130" cy="300" r="12"/>
+        <circle cx="730" cy="295" r="13"/>
+      </g>
+      <g fill="#2d4a3e" opacity=".4">
+        <circle cx="40"  cy="60"  r="12"/><circle cx="820" cy="60"  r="12"/>
+        <circle cx="40"  cy="400" r="10"/><circle cx="820" cy="400" r="10"/>
+        <circle cx="240" cy="40"  r="7"/><circle cx="620" cy="40"  r="7"/>
+      </g>
+
+      <!-- Stall positions - LEFT side -->
+      <!-- India -->
+      <rect x="20" y="140" width="118" height="62" rx="8" fill="white" stroke="rgba(255,153,51,.5)" stroke-width="1.5"/>
+      <rect x="20" y="140" width="118" height="5" rx="3" fill="#FF9933"/>
+      <text x="79" y="166" font-family="'DM Sans',sans-serif" font-size="11" font-weight="600" text-anchor="middle" fill="#3a3530">🇮🇳 India Stall</text>
+      <text x="79" y="181" font-family="'DM Sans',sans-serif" font-size="8.5" text-anchor="middle" fill="#8a8070">Skewers · Wraps</text>
+      <!-- scan badge -->
+      <rect x="124" y="158" width="12" height="12" rx="3" fill="#c4622d" opacity=".9"/>
+      <text x="130" y="168" font-family="'DM Sans',sans-serif" font-size="7" text-anchor="middle" fill="white">📶</text>
+
+      <!-- Nepal -->
+      <rect x="20" y="218" width="118" height="62" rx="8" fill="white" stroke="rgba(200,16,46,.4)" stroke-width="1.5"/>
+      <rect x="20" y="218" width="118" height="5" rx="3" fill="#c8102e"/>
+      <text x="79" y="244" font-family="'DM Sans',sans-serif" font-size="11" font-weight="600" text-anchor="middle" fill="#3a3530">🇳🇵 Nepal Stall</text>
+      <text x="79" y="259" font-family="'DM Sans',sans-serif" font-size="8.5" text-anchor="middle" fill="#8a8070">Skewers · Rolls</text>
+      <rect x="124" y="236" width="12" height="12" rx="3" fill="#c4622d" opacity=".9"/>
+
+      <!-- Stall positions - RIGHT side -->
+      <!-- China -->
+      <rect x="722" y="140" width="118" height="62" rx="8" fill="white" stroke="rgba(222,41,16,.4)" stroke-width="1.5"/>
+      <rect x="722" y="140" width="118" height="5" rx="3" fill="#DE2910"/>
+      <text x="781" y="166" font-family="'DM Sans',sans-serif" font-size="11" font-weight="600" text-anchor="middle" fill="#3a3530">🇨🇳 China Stall</text>
+      <text x="781" y="181" font-family="'DM Sans',sans-serif" font-size="8.5" text-anchor="middle" fill="#8a8070">Skewers · Buns</text>
+      <rect x="724" y="158" width="12" height="12" rx="3" fill="#c4622d" opacity=".9"/>
+
+      <!-- Vietnam -->
+      <rect x="722" y="218" width="118" height="62" rx="8" fill="white" stroke="rgba(218,37,29,.4)" stroke-width="1.5"/>
+      <rect x="722" y="218" width="118" height="5" rx="3" fill="#da251d"/>
+      <text x="781" y="244" font-family="'DM Sans',sans-serif" font-size="11" font-weight="600" text-anchor="middle" fill="#3a3530">🇻🇳 Vietnam Stall</text>
+      <text x="781" y="259" font-family="'DM Sans',sans-serif" font-size="8.5" text-anchor="middle" fill="#8a8070">Wraps · Rolls</text>
+      <rect x="724" y="236" width="12" height="12" rx="3" fill="#c4622d" opacity=".9"/>
+
+      <!-- Finland - back centre -->
+      <rect x="352" y="144" width="156" height="62" rx="8" fill="white" stroke="rgba(0,53,128,.3)" stroke-width="1.5"/>
+      <rect x="352" y="144" width="156" height="5" rx="3" fill="#003580"/>
+      <text x="430" y="170" font-family="'DM Sans',sans-serif" font-size="11" font-weight="600" text-anchor="middle" fill="#3a3530">🇫🇮 Finland Stall</text>
+      <text x="430" y="185" font-family="'DM Sans',sans-serif" font-size="8.5" text-anchor="middle" fill="#8a8070">Sausages · Pies</text>
+      <rect x="490" y="162" width="12" height="12" rx="3" fill="#c4622d" opacity=".9"/>
+
+      <!-- BOTTOM ROW -->
+      <!-- India back -->
+      <rect x="105" y="306" width="128" height="58" rx="8" fill="white" stroke="rgba(255,153,51,.4)" stroke-width="1.5"/>
+      <rect x="105" y="306" width="128" height="4" rx="2" fill="#FF9933"/>
+      <text x="169" y="329" font-family="'DM Sans',sans-serif" font-size="10" font-weight="600" text-anchor="middle" fill="#3a3530">🇮🇳 India — Queue</text>
+      <text x="169" y="343" font-family="'DM Sans',sans-serif" font-size="8" text-anchor="middle" fill="#8a8070">Overflow area</text>
+
+      <!-- Finland back grill -->
+      <rect x="366" y="310" width="128" height="58" rx="8" fill="white" stroke="rgba(0,53,128,.25)" stroke-width="1.5"/>
+      <rect x="366" y="310" width="128" height="4" rx="2" fill="#003580"/>
+      <text x="430" y="333" font-family="'DM Sans',sans-serif" font-size="10" font-weight="600" text-anchor="middle" fill="#3a3530">🇫🇮 Finland — Grill</text>
+      <text x="430" y="347" font-family="'DM Sans',sans-serif" font-size="8" text-anchor="middle" fill="#8a8070">Sausage station</text>
+
+      <!-- Leaderboard screen -->
+      <rect x="627" y="306" width="128" height="58" rx="8" fill="#2d4a3e"/>
+      <text x="691" y="330" font-family="'DM Sans',sans-serif" font-size="10" font-weight="600" text-anchor="middle" fill="rgba(245,240,232,.85)">🏆 Leaderboard</text>
+      <text x="691" y="346" font-family="'DM Sans',sans-serif" font-size="8" text-anchor="middle" fill="rgba(196,98,45,.8)">Live Rankings</text>
+
+      <!-- Facilities -->
+      <rect x="20" y="308" width="72" height="54" rx="8" fill="white" stroke="var(--border)" stroke-width="1"/>
+      <text x="56" y="334" font-family="'DM Sans',sans-serif" font-size="9" text-anchor="middle" fill="#8a8070">🚪 Entry</text>
+      <rect x="768" y="308" width="72" height="54" rx="8" fill="white" stroke="var(--border)" stroke-width="1"/>
+      <text x="804" y="334" font-family="'DM Sans',sans-serif" font-size="9" text-anchor="middle" fill="#8a8070">🚻 WC</text>
+
+      <!-- LEGEND -->
+      <rect x="22" y="388" width="10" height="10" rx="3" fill="#c4622d" opacity=".9"/>
+      <text x="38" y="397" font-family="'DM Sans',sans-serif" font-size="9" fill="#8a8070" letter-spacing="0.5">Scan Point (50% discount)</text>
+
+      <!-- Walking arrows -->
+      <text x="430" y="235" font-family="'DM Sans',sans-serif" font-size="10" text-anchor="middle" fill="rgba(45,74,62,.3)" letter-spacing="3">WALK FREELY</text>
+      <!-- North indicator -->
+      <text x="840" y="436" font-family="'DM Sans',sans-serif" font-size="10" text-anchor="end" fill="rgba(45,74,62,.3)">N ↑</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ══ LEADERBOARD ══ -->
+<section id="leaderboard">
+  <span class="sec-tag reveal">Competition</span>
+  <h2 class="sec-h reveal">Stall <em>Rankings</em></h2>
+  <p class="sec-sub reveal">All stall revenues are counted at the end of the festival. The winner is announced live — the whole campus finds out together.</p>
+  <div class="divider"></div>
+
+  <div class="lb-wrap reveal" id="static-lb">
+    <div class="lb-row"><div class="lb-rank">1</div><div class="lb-flag">🇳🇵</div><div class="lb-info"><div class="lb-name">Nepal — Sekuwa Station</div><div class="lb-detail">128 orders · Top: Sekuwa Skewer</div></div><div class="lb-bar"><div class="lb-fill" data-w="95"></div></div><div class="lb-rev">€320</div></div>
+    <div class="lb-row"><div class="lb-rank">2</div><div class="lb-flag">🇻🇳</div><div class="lb-info"><div class="lb-name">Vietnam — Bánh Mì Bar</div><div class="lb-detail">104 orders · Top: Bánh Mì</div></div><div class="lb-bar"><div class="lb-fill" data-w="78"></div></div><div class="lb-rev">€270</div></div>
+    <div class="lb-row"><div class="lb-rank">3</div><div class="lb-flag">🇮🇳</div><div class="lb-info"><div class="lb-name">India — Tikka Grill</div><div class="lb-detail">96 orders · Top: Tikka Skewer</div></div><div class="lb-bar"><div class="lb-fill" data-w="63"></div></div><div class="lb-rev">€224</div></div>
+    <div class="lb-row"><div class="lb-rank">4</div><div class="lb-flag">🇨🇳</div><div class="lb-info"><div class="lb-name">China — Dragon Bites</div><div class="lb-detail">80 orders · Top: BBQ Skewer</div></div><div class="lb-bar"><div class="lb-fill" data-w="50"></div></div><div class="lb-rev">€184</div></div>
+    <div class="lb-row"><div class="lb-rank">5</div><div class="lb-flag">🇫🇮</div><div class="lb-info"><div class="lb-name">Finland — Nordic Grill</div><div class="lb-detail">68 orders · Top: Bratwurst</div></div><div class="lb-bar"><div class="lb-fill" data-w="40"></div></div><div class="lb-rev">€156</div></div>
+  </div>
+
+  <div class="prizes reveal" style="transition-delay:.2s">
+    <div class="prize"><span class="trophy">🥇</span><div class="pplace">1st Place</div><div class="preward">Trophy + Certificate + Prime stall spot at next festival</div></div>
+    <div class="prize"><span class="trophy">🥈</span><div class="pplace">2nd Place</div><div class="preward">Certificate of Excellence + Recognition at closing ceremony</div></div>
+    <div class="prize"><span class="trophy">🥉</span><div class="pplace">3rd Place</div><div class="preward">Certificate of Merit + Honourable mention on campus board</div></div>
+  </div>
+</section>
+
+<!-- ══ SIMULATOR ══ -->
+<section id="simulate">
+  <span class="sec-tag reveal">Try It</span>
+  <h2 class="sec-h reveal">Sales <em>Simulator</em></h2>
+  <p class="sec-sub reveal">Click "Add Sales Round" to simulate a real festival day. Watch rankings shift in real time as the crowd votes with their wallets.</p>
+  <div class="divider"></div>
+
+  <div class="sim-wrap reveal">
+    <div class="sim-btns">
+      <button class="sbtn go" onclick="addRound()">+ Add Sales Round</button>
+      <button class="sbtn" onclick="resetSim()">↺ Reset</button>
+    </div>
+    <table class="sim-tbl">
+      <thead><tr><th>Rank</th><th>Stall</th><th>Revenue Progress</th><th style="text-align:right">Total</th></tr></thead>
+      <tbody id="sim-body"></tbody>
+    </table>
+    <div class="win-banner" id="win-banner"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-tape"></div>
+  <div class="ft-logo">Back to Campus Festival — JAMK 2025</div>
+  <div class="ft-note">Student-run · International Food · Wristband Discount · Live Competition</div>
+</footer>
+
+<script>
+/* ── LEAF CANVAS (floating leaves on hero) ── */
+const lc = document.getElementById('leaf-canvas');
+const lctx = lc.getContext('2d');
+function resizeLeaf() { lc.width = lc.parentElement.offsetWidth; lc.height = lc.parentElement.offsetHeight; }
+resizeLeaf(); window.addEventListener('resize', resizeLeaf);
+
+const leaves = [];
+const leafColors = ['rgba(245,240,232,', 'rgba(196,98,45,', 'rgba(212,144,42,'];
+for (let i = 0; i < 28; i++) {
+  leaves.push({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    size: Math.random() * 10 + 5,
+    rot: Math.random() * Math.PI * 2,
+    vx: (Math.random() - .5) * .4,
+    vy: Math.random() * .5 + .2,
+    vr: (Math.random() - .5) * .02,
+    alpha: Math.random() * .15 + .04,
+    color: leafColors[Math.floor(Math.random() * leafColors.length)]
+  });
+}
+
+function drawLeaf(ctx, x, y, size, rot, alpha, color) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(rot);
+  ctx.globalAlpha = alpha;
+  ctx.beginPath();
+  ctx.moveTo(0, -size);
+  ctx.bezierCurveTo(size * .8, -size * .5, size * .8, size * .5, 0, size);
+  ctx.bezierCurveTo(-size * .8, size * .5, -size * .8, -size * .5, 0, -size);
+  ctx.fillStyle = color + '1)';
+  ctx.fill();
+  ctx.strokeStyle = color + '.6)';
+  ctx.lineWidth = .5;
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(0, -size); ctx.lineTo(0, size);
+  ctx.strokeStyle = color + '.4)';
+  ctx.lineWidth = .5;
+  ctx.stroke();
+  ctx.restore();
+}
+
+function animLeaves() {
+  lctx.clearRect(0, 0, lc.width, lc.height);
+  leaves.forEach(l => {
+    l.x += l.vx; l.y += l.vy; l.rot += l.vr;
+    if (l.y > lc.height + 20) { l.y = -20; l.x = Math.random() * lc.width; }
+    if (l.x < -20) l.x = lc.width + 20;
+    if (l.x > lc.width + 20) l.x = -20;
+    drawLeaf(lctx, l.x, l.y, l.size, l.rot, l.alpha, l.color);
+  });
+  requestAnimationFrame(animLeaves);
+}
+animLeaves();
+
+/* ── BARCODE ── */
+function buildBarcode() {
+  const c = document.getElementById('bcBars');
+  if (!c) return;
+  const ws = [2,1,3,1,2,3,1,2,1,3,2,1,4,1,2,1,3,2,1,3,2,1,2,3,1,2,4,1,2,1,3,2,1,2,3,1,2,4,1,2];
+  ws.forEach((w, i) => {
+    const s = document.createElement('span');
+    s.style.cssText = `width:${w*1.4}px;height:${i%3===0?40:34}px;background:rgba(245,240,232,${i%2===0?.82:.0});border-radius:1px;`;
+    c.appendChild(s);
+  });
+}
+buildBarcode();
+
+/* ── SCROLL REVEALS ── */
+const revEls = document.querySelectorAll('.reveal,.reveal-l,.reveal-r');
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); } });
+}, { threshold: .1 });
+revEls.forEach(el => ro.observe(el));
+
+/* ── LEADERBOARD BARS ── */
+const lbObs = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    document.querySelectorAll('.lb-fill').forEach((b, i) => {
+      setTimeout(() => { b.style.width = b.dataset.w + '%'; }, i * 120);
+    });
+    lbObs.disconnect();
+  }
+}, { threshold: .25 });
+const slb = document.getElementById('static-lb');
+if (slb) lbObs.observe(slb);
+
+/* ── SIMULATOR ── */
+const STALLS = [
+  { flag:'🇮🇳', name:'India',   sub:'Tikka Grill',     rev:0 },
+  { flag:'🇳🇵', name:'Nepal',   sub:'Sekuwa Station',  rev:0 },
+  { flag:'🇨🇳', name:'China',   sub:'Dragon Bites',    rev:0 },
+  { flag:'🇻🇳', name:'Vietnam', sub:'Bánh Mì Bar',     rev:0 },
+  { flag:'🇫🇮', name:'Finland', sub:'Nordic Grill',    rev:0 },
+];
+let round = 0;
+
+function addRound() {
+  round++;
+  STALLS.forEach(s => { s.rev += Math.floor(Math.random() * 60) + 14; });
+  renderSim();
+  if (round >= 3) {
+    const sorted = [...STALLS].sort((a,b) => b.rev - a.rev);
+    const b = document.getElementById('win-banner');
+    b.innerHTML = `🏆 <strong>Current leader: ${sorted[0].flag} ${sorted[0].name} — ${sorted[0].sub}</strong> with <strong style="color:var(--terra)">€${sorted[0].rev}</strong> after ${round} rounds.`;
+    b.style.display = 'block';
+  }
+}
+
+function resetSim() {
+  round = 0; STALLS.forEach(s => s.rev = 0);
+  document.getElementById('win-banner').style.display = 'none';
+  renderSim();
+}
+
+function renderSim() {
+  const sorted = [...STALLS].sort((a,b) => b.rev - a.rev);
+  const maxRev = sorted[0].rev || 1;
+  const tbody = document.getElementById('sim-body');
+  tbody.innerHTML = '';
+  sorted.forEach((s, i) => {
+    const rank = i + 1;
+    const pct = Math.round(s.rev / maxRev * 100);
+    const rc = ['r1','r2','r3','rn','rn'][i];
+    const tr = document.createElement('tr');
+    if (rank === 1 && round > 0) tr.classList.add('top');
+    tr.innerHTML = `
+      <td><span class="rbadge ${rc}">${rank}</span></td>
+      <td><div class="s-label"><span class="s-flag">${s.flag}</span><div><div class="s-nm">${s.name}</div><div class="s-nat">${s.sub}</div></div></div></td>
+      <td><div class="s-bar-wrap"><div class="s-bar"><div class="s-fill ${rank===1?'top':''}" style="width:${pct}%"></div></div></div></td>
+      <td class="s-val">€${s.rev}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+renderSim();
+</script>
+</body>
+</html>
